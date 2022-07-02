@@ -1,4 +1,4 @@
-.btn {
+.jw-btn {
   position: relative;
   display: inline-block;
   font-weight: $btn-font-weight;
@@ -23,25 +23,25 @@
     }
   }
 }
-.btn-lg {
+.jw-btn-lg {
   @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg,$border-radius-lg)
 }
-.btn-sm {
+.jw-btn-sm {
   @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm,$border-radius-sm)
 }
 
-.btn-primary {
+.jw-btn-primary {
   @include button-style($primary, $primary, $white)
 }
-.btn-danger {
+.jw-btn-danger {
   @include button-style($danger, $danger, $white)
 }
 
-.btn-default {
+.jw-btn-default {
   @include button-style($white, $gray-400, $body-color, $white, $primary, $primary)
 }
 
-.btn-link {
+.jw-btn-link {
   font-weight: $font-weight-normal;
   color: $btn-link-color;
   text-decoration: $link-decoration;
