@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import classNames from 'classnames'
 
-export enum type {
-  Default = 'default',
+export enum AlertType {
+  Default = 'defult',
   Success = 'success',
   Danger = 'danger',
   Warning = 'warning'
@@ -10,7 +10,7 @@ export enum type {
 export interface AlertProps {
   title: React.ReactNode,
   description?: React.ReactNode,
-  type?: type,
+  type?: AlertType,
   onClose?: () => void;
   closable?: boolean
 }
@@ -32,7 +32,6 @@ const Alert: React.FC<AlertProps> = (props) => {
   })
  
   const handleClose = (e: React.MouseEvent) => {
-    console.log(hide)
     if (onClose) {
       onClose()
     }
@@ -54,7 +53,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 }
 
 Alert.defaultProps = {
-  type: type.Default,
+  type: AlertType.Default,
   closable: true,
 }
 export default Alert

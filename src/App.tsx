@@ -1,5 +1,5 @@
 import Button, {ButtonType, ButtonSize} from './components/Button/button';
-import Alert, { type } from './components/Alert/alert'
+import Alert, { AlertType } from './components/Alert/alert'
 
 function App() {
   return (
@@ -13,11 +13,11 @@ function App() {
         <Button btnType={ButtonType.Link} href="http://www.baidu.com" disabled> Disabled Link </Button>
       </div>
       <div style={{width: "500px"}}>
-        <Alert title="this is a alert" type={type.Default}/>
-        <Alert title="this is a alert" type={type.Warning}/>
-        <Alert title="this is a alert" type={type.Success}/>
-        <Alert title="this is a alert" type={type.Danger}/>
-        <Alert title="this is a alert" description="this is a description" type={type.Danger}/>
+        <Alert title="this is a alert" type={AlertType.Default}/>
+        <Alert title="this is a alert" type={AlertType.Warning}/>
+        <Alert title="this is a alert" type={AlertType.Success}/>
+        <Alert title="this is a alert" type={AlertType.Danger}/>
+        <Alert title="this is a alert" description="this is a description" type={AlertType.Danger}/>
       </div>
     </div>
   );
