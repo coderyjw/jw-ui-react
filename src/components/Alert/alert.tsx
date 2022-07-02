@@ -27,6 +27,9 @@ const Alert: React.FC<AlertProps> = (props) => {
   const classes = classNames('jw-alert', {
     [`jw-alert-${type}`]: type,
   })
+  const titleClass = classNames('jw-alert-title', {
+    'bold-title': description
+  })
  
   const handleClose = (e: React.MouseEvent) => {
     console.log(hide)
@@ -39,13 +42,13 @@ const Alert: React.FC<AlertProps> = (props) => {
   if(!hide) {
     return (
       <div className={classes}>
-        <span className="bold-title">{title}</span>
+        <span className={titleClass}>{title}</span>
         {description &&  <p className="jw-alert-desc">{description}</p>}
         {closable && <span className="jw-alert-close" onClick={handleClose}>关闭</span>}
       </div>
     )
   } else {
-    return <></>
+    return null
   }
  
 }
