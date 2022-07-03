@@ -6,10 +6,10 @@ import MenuItem from './components/Menu/menuItem';
 function App() {
   return (
     <div className="App">
-      <Menu>
-        <MenuItem>1</MenuItem>
-        <MenuItem>2</MenuItem>
-        <MenuItem>3</MenuItem>
+      <Menu defaultIndex={1} onSelect={index => alert(index)}>
+        <MenuItem index={1}>1</MenuItem>
+        <MenuItem index={2} disabled>2</MenuItem>
+        <MenuItem index={3}>3</MenuItem>
       </Menu>
       <div style={{marginBottom: '10px'}}>
         <Button autoFocus> Hello </Button>
