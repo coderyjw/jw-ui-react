@@ -6,24 +6,7 @@
   border-bottom: $menu-border-width solid $menu-border-color;
   box-shadow: $menu-box-shadow;
 
-  > .jw-menu-item {
-    padding:$menu-item-padding-x $menu-item-padding-y;
-    cursor: pointer;
-    transition: $menu-transition;
-
-    &:hover,&:focus {
-      text-decoration: none;
-    }
-    &.is-disabled {
-      color: $menu-item-disabled-color;
-      pointer-events: none;
-      cursor: default;
-    }
-    &.is-active,&:hover {
-      color: $menu-item-active-color;
-      border-bottom: $menu-item-active-border-width solid $menu-item-active-color;
-    }
-  }
+ 
   .jw-submenu-item {
     position: relative;
     .jw-submenu-title {
@@ -39,6 +22,13 @@
         transform: rotate(180deg);
       }
     }
+    &.is-disabled {
+      color: $menu-item-disabled-color !important; 
+      pointer-events: none;
+      cursor: default;
+    }
+    
+    
   }
   .jw-submenu {
     display: none;
@@ -58,7 +48,31 @@
       &.is-active, &:hover {
         color: $menu-item-active-color !important;
       }
+      &.is-disabled {
+        color: $menu-item-disabled-color !important; 
+        pointer-events: none;
+        cursor: default;
+      }
     }
+  }
+  > .jw-menu-item {
+    padding:$menu-item-padding-x $menu-item-padding-y;
+    cursor: pointer;
+    transition: $menu-transition;
+
+    &:hover,&:focus {
+      text-decoration: none;
+    }
+    &.is-disabled {
+      color: $menu-item-disabled-color;
+      pointer-events: none;
+      cursor: default;
+    }
+    &.is-active,&:hover {
+      color: $menu-item-active-color;
+      border-bottom: $menu-item-active-border-width solid $menu-item-active-color;
+    }
+    
   }
 
 }
@@ -66,6 +80,9 @@
 .menu-horizontal {
   >.jw-menu-item {
     border-bottom: $menu-item-active-border-width solid transparent;
+    &.is-disabled.is-active {
+      border-bottom: $menu-border-width solid  $menu-item-disabled-color !important;
+    }
   }
   .jw-submenu {
     position: absolute;
@@ -83,11 +100,15 @@
   border-bottom: 0px;
   margin: 10px 20px;
   border-right: $menu-border-width solid $menu-border-color;
+  
   >.jw-menu-item {
     border-left: $menu-item-active-border-width solid transparent;
     &.is-active, &:hover {
       border-bottom: 0px;
       border-left: $menu-item-active-border-width solid $menu-item-active-color;
+    }
+    &.is-disabled.is-active {
+      border-left: $menu-border-width solid  $menu-item-disabled-color !important;
     }
   }
 }

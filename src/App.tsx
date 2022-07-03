@@ -7,8 +7,8 @@ import SubMenu from './components/Menu/subMenu';
 function App() {
   return (
     <div className="App">
-      <Menu style={{marginBottom: '200px',marginLeft: '10px'}} defaultIndex={1} onSelect={index => console.log(index)} mode="vertical">
-        <SubMenu title="dropdown">
+      <Menu style={{marginBottom: '200px',marginLeft: '10px'}} defaultIndex="0" onSelect={index => console.log(index)} mode="horizontal" defaultOpenSubMenus={['0','1','2']}>
+        <SubMenu title="dropdown" >
           <MenuItem>dropdown1</MenuItem>
           <MenuItem>dropdown2</MenuItem>
           <MenuItem>dropdown3</MenuItem>

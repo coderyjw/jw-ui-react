@@ -2,14 +2,14 @@ import { cleanup, fireEvent, render, RenderResult } from '@testing-library/react
 import Menu, {MenuProps} from './menu'
 import MenuItem from './menuItem'
 const testProps: MenuProps = {
-  defaultIndex: 0,
+  defaultIndex: '0',
   onSelect: jest.fn(),
   className: 'test'
 }
 
 const testVerProps:MenuProps = {
   mode: 'vertical',
-  defaultIndex: 0
+  defaultIndex: '0'
 }
 
 const generateMenu = (props:MenuProps) => {
