@@ -1,9 +1,16 @@
 import Button, {ButtonType, ButtonSize} from './components/Button/button';
 import Alert, { AlertType } from './components/Alert/alert'
+import Menu from './components/Menu/menu'
+import MenuItem from './components/Menu/menuItem';
 
 function App() {
   return (
     <div className="App">
+      <Menu>
+        <MenuItem>1</MenuItem>
+        <MenuItem>2</MenuItem>
+        <MenuItem>3</MenuItem>
+      </Menu>
       <div style={{marginBottom: '10px'}}>
         <Button autoFocus> Hello </Button>
         <Button disabled> Disabled Button </Button>

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import classNames from 'classnames'
 
 export enum AlertType {
-  Default = 'defult',
+  Default = 'default',
   Success = 'success',
   Danger = 'danger',
   Warning = 'warning'
