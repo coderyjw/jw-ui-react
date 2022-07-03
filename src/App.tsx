@@ -6,7 +6,12 @@ import MenuItem from './components/Menu/menuItem';
 function App() {
   return (
     <div className="App">
-      <Menu defaultIndex={1} onSelect={index => alert(index)}>
+      <Menu defaultIndex={1} onSelect={index => console.log(index)}>
+        <MenuItem index={1}>1</MenuItem>
+        <MenuItem index={2} disabled>2</MenuItem>
+        <MenuItem index={3}>3</MenuItem>
+      </Menu>
+      <Menu style={{marginLeft: '10px'}} mode="vertical" defaultIndex={1} onSelect={index => console.log(index)}>
         <MenuItem index={1}>1</MenuItem>
         <MenuItem index={2} disabled>2</MenuItem>
         <MenuItem index={3}>3</MenuItem>
