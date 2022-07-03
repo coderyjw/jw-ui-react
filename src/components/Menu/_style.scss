@@ -41,11 +41,15 @@
     }
   }
   .jw-submenu {
-    //display: none;
+    display: none;
     list-style:none;
     padding-left: 0;
     white-space: nowrap;
     //transition: $menu-transition;
+
+    &.menu-opened {
+      display: block;
+    }
     .jw-menu-item {
       padding: $menu-item-padding-y $menu-item-padding-x;
       cursor: pointer;
@@ -56,6 +60,7 @@
       }
     }
   }
+
 }
 
 .menu-horizontal {
