@@ -3,6 +3,8 @@ import Alert, { AlertType } from './components/Alert/alert'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem';
 import SubMenu from './components/Menu/subMenu';
+import Tabs from './components/Tabs/tabs'
+import TabItem from './components/Tabs/tabItem';
 
 function App() {
   return (
@@ -31,6 +33,12 @@ function App() {
         <Alert title="this is a alert" type={AlertType.Danger}/>
         <Alert title="this is a alert" description="this is a description" type={AlertType.Danger}/>
       </div>
+
+      <Tabs type="card">
+        <TabItem label='one' disabled>this is card one</TabItem>
+        <TabItem label='two'>this is card two</TabItem>
+        <TabItem label='three'>this is card three</TabItem>
+      </Tabs>
     </div>
   );
 }
