@@ -34,7 +34,7 @@ function App() {
         <Alert title="this is a alert" description="this is a description" type={AlertType.Danger}/>
       </div>
 
-      <Tabs type="card">
+      <Tabs >
         <TabItem label='one' disabled>this is card one</TabItem>
         <TabItem label='two'>this is card two</TabItem>
         <TabItem label='three'>this is card three</TabItem>

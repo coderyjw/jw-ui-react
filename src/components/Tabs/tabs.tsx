@@ -11,7 +11,7 @@ export interface TabsProps {
 }
 
 const Tabs: React.FC<TabsProps> = props => {
-  const { className, type,defaultIndex,children, onSelect } = props
+  const { className, type, defaultIndex, children, onSelect } = props
   const [ activeIndex, setActiveIndex ] = useState(defaultIndex)
 
   const handleClick = (e: React.MouseEvent, index: number, disabled: boolean | undefined) => {
@@ -58,12 +58,9 @@ const Tabs: React.FC<TabsProps> = props => {
   }
 
   return <div className={`jw-tabs ${className}`}>
-    <div className="jw-tabs-nav">
-      <ul className={navClass}>
-        {renderNavLinks()}
-      </ul>
-
-    </div>
+    <ul className={navClass}>
+      {renderNavLinks()}
+    </ul>
     <div className="jw-tabs-content">
       {renderContent()}
     </div>
