@@ -11,13 +11,13 @@ type TransitionProps = CSSTransitionProps & {
 
 const Transition:React.FC<TransitionProps> = props => {
 
-  const { children, classNames, animation, ...restProps} = props
+  const { children, classNames, animation, wrapper, ...restProps} = props
   return (
     <CSSTransition 
       classNames = { classNames ? classNames : animation}
       { ...restProps}
     >
-      {children}
+      {wrapper ? <div>{children}</div> : children}
     </CSSTransition>
   )
 }

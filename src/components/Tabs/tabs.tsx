@@ -30,7 +30,6 @@ const Tabs: React.FC<TabsProps> = props => {
   const renderNavLinks = () => {
     return React.Children.map(children, (child,index) => {
       const childElement = child as FunctionComponentElement<TabItemProps>
-      console.log({childElement, child, index})
       const { disabled, label } = childElement.props
       const classes = classNames('jw-tabs-nav-item', {
         'is-active': activeIndex === index,
