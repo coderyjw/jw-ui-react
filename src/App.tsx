@@ -44,10 +44,10 @@ function App() {
         <div style={{marginBottom: '10px'}}>
           <Button autoFocus> Hello </Button>
           <Button disabled> Disabled Button </Button>
-          <Button btnType={ButtonType.Primary} size='lg'> Large Primary </Button>
-          <Button btnType={ButtonType.Danger} size='sm'> Small Danger </Button>
-          <Button btnType={ButtonType.Link} href="http://www.baidu.com"> Baidu Link </Button>
-          <Button btnType={ButtonType.Link} href="http://www.baidu.com" disabled> Disabled Link </Button>
+          <Button btnType='primary' size='lg'> Large Primary </Button>
+          <Button btnType='danger' size='sm'> Small Danger </Button>
+          <Button btnType='link' href="http://www.baidu.com"> Baidu Link </Button>
+          <Button btnType='link' href="http://www.baidu.com" disabled> Disabled Link </Button>
         </div>
       </Transition>
       

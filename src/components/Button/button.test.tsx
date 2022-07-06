@@ -6,7 +6,7 @@ const defaultProps = {
 }
 
 const testProps: ButtonProps = {
-  btnType: ButtonType.Danger,
+  btnType: 'danger',
   size: 'lg',
   className: 'coder'
 }
@@ -35,7 +35,7 @@ describe('test Button component', () => {
     expect(element).toHaveClass('coder jw-btn-danger jw-btn jw-btn-lg')
   })
   it('should render a lin when btnType equals link and hred is provided',() => {
-    const wrapper = render(<Button btnType={ButtonType.Link} href="http://www.baidu.com">Link</Button>)
+    const wrapper = render(<Button btnType='link' href="http://www.baidu.com">Link</Button>)
     const element = wrapper.getByText('Link')
     expect(element).toBeInTheDocument()
     expect(element.tagName).toEqual('A')
