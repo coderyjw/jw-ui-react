@@ -1,9 +1,6 @@
 import React from 'react'
 import classNames from 'classnames';
-export enum ButtonSize {
-  Large = 'lg',
-  Small = 'sm'
-}
+export type ButtonSize = 'lg' | 'sm'
 
 export enum ButtonType {
   Primary = 'primary',

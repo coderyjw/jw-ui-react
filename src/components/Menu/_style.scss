@@ -31,14 +31,17 @@
     
   }
   .jw-submenu {
-    display: none;
+    // display: none;
     list-style:none;
     padding-left: 0;
     white-space: nowrap;
+    // opacity: 0;
+    // transition: opacity .3s ease-in;
     //transition: $menu-transition;
 
     &.menu-opened {
-      display: block;
+      // display: block;
+      // opacity: 1;
     }
     .jw-menu-item {
       padding: $menu-item-padding-y $menu-item-padding-x;

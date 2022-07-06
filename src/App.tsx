@@ -19,7 +19,7 @@ function App() {
         defaultIndex="0"
         onSelect={index => console.log(index)}
         defaultOpenSubMenus={['0','1','2']}
-        mode="vertical"
+        mode="horizontal"
       >
         <SubMenu title="dropdown" >
           <MenuItem>dropdown1</MenuItem>
@@ -32,8 +32,8 @@ function App() {
       <div style={{marginBottom: '10px'}}>
         <Button autoFocus> Hello </Button>
         <Button disabled> Disabled Button </Button>
-        <Button btnType={ButtonType.Primary} size={ButtonSize.Large}> Large Primary </Button>
-        <Button btnType={ButtonType.Danger} size={ButtonSize.Small}> Small Danger </Button>
+        <Button btnType={ButtonType.Primary} size='lg'> Large Primary </Button>
+        <Button btnType={ButtonType.Danger} size='sm'> Small Danger </Button>
         <Button btnType={ButtonType.Link} href="http://www.baidu.com"> Baidu Link </Button>
         <Button btnType={ButtonType.Link} href="http://www.baidu.com" disabled> Disabled Link </Button>
       </div>
