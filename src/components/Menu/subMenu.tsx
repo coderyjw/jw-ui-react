@@ -10,13 +10,16 @@ import Transition from '../Transition/transition'
 
 export interface SubMenuProps {
   index?: string;
-  disabled?: boolean;
+  /**下拉菜单选项的文字 */
   title: string;
+  /**下拉菜单选型的扩展类名 */
   className?: string;
-  children?: React.ReactNode
+  children?: React.ReactNode;
+  /**选项是否被禁用 */
+  disabled?: boolean;
 }
 
-const SubMenu: React.FC<SubMenuProps> = ({index, title, className, children, disabled}) => {
+export const SubMenu: React.FC<SubMenuProps> = ({index, title, className, children, disabled}) => {
   const context = useContext(MenuContext)
   const openSubMenus = context.defaultOpenSubMenus as Array<string>
   const isOpend = (index && context.mode === 'vertical') ? openSubMenus.includes(index) : false

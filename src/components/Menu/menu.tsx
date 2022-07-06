@@ -4,13 +4,17 @@ import { MenuItemProps } from './menuItem'
 type MenuMode = 'horizontal' | 'vertical'
 type SelectCallback =  (selectedIndex: string) => void
 export interface MenuProps {
-  mode?: MenuMode,
-  defaultIndex?: string,
-  className?: string,
-  style?: React.CSSProperties,
-  onSelect?: SelectCallback,
-  children?: React.ReactNode,
-  defaultOpenSubMenus?: string[]
+  /**默认 active 的菜单项的索引值 */
+  defaultIndex?: string;
+  className?: string;
+  /**菜单类型 横向或者纵向 */
+  mode?: MenuMode;
+  style?: React.CSSProperties;
+  /**点击菜单项触发的回掉函数 */
+  onSelect?: (selectedIndex: string) => void;
+  /**设置子菜单的默认打开 只在纵向模式下生效 */
+  defaultOpenSubMenus?: string[];
+  children?: React.ReactNode;
 }
 
 interface IMenuContext {
@@ -22,7 +26,16 @@ interface IMenuContext {
 
 export const MenuContext =  createContext<IMenuContext>({index: '0'})
 
-const Menu: React.FC<MenuProps> = props => {
+/**
+ * 为网站提供导航功能的菜单。支持横向纵向两种模式，支持下拉菜单。
+ * 
+ * ```javascript
+ * import { Menu } from 'vikingship'
+ * 
+ * //然后可以使用 Menu.Item 和 Menu.Submenu 访问选项和子下拉菜单组件
+ * ```
+ */
+export const Menu: React.FC<MenuProps> = props => {
   const { className, mode, defaultIndex,
    style, children,onSelect,defaultOpenSubMenus } = props
 
