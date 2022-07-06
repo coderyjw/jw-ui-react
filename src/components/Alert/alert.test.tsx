@@ -1,9 +1,9 @@
 import { render,fireEvent } from '@testing-library/react'
-import Alert, {AlertProps,AlertType} from './alert'
+import Alert, {AlertProps} from './alert'
 
 const testProps: AlertProps = {
   title: '我是标题',
-  type: AlertType.Success,
+  type: 'success',
   onClose: jest.fn(),
   description: 'hello',
 }

@@ -1,12 +1,8 @@
 import React, {useState} from 'react'
 import classNames from 'classnames'
-
-export enum AlertType {
-  Default = 'default',
-  Success = 'success',
-  Danger = 'danger',
-  Warning = 'warning'
-}
+import Icon from '../Icon/icon'
+import Transition from '../Transition/transition';
+export type AlertType = 'default' | 'success' | 'danger' | 'warning'
 export interface AlertProps {
   title: React.ReactNode,
   description?: React.ReactNode,
@@ -38,22 +34,25 @@ const Alert: React.FC<AlertProps> = (props) => {
     setHide(true)
   }
 
-  if(!hide) {
-    return (
+  return (
+    <Transition
+      in={!hide}
+      timeout={300}
+      animation="zoom-in-top"
+    >
       <div className={classes}>
         <span className={titleClass}>{title}</span>
         {description &&  <p className="jw-alert-desc">{description}</p>}
-        {closable && <span className="jw-alert-close" onClick={handleClose}>关闭</span>}
+        {closable && <span className="jw-alert-close" onClick={handleClose}><Icon icon="times"/></span>}
       </div>
-    )
-  } else {
-    return null
-  }
+    </Transition>
+  )
+
  
 }
 
 Alert.defaultProps = {
-  type: AlertType.Default,
+  type: 'default',
   closable: true,
 }
 export default Alert

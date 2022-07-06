@@ -53,11 +53,11 @@ function App() {
       
       <Transition in={showAlert} timeout={300} animation="zoom-in-top">
         <div style={{width: "500px"}}>
-          <Alert title="this is a alert" type={AlertType.Default}/>
-          <Alert title="this is a alert" type={AlertType.Warning}/>
-          <Alert title="this is a alert" type={AlertType.Success}/>
-          <Alert title="this is a alert" type={AlertType.Danger}/>
-          <Alert title="this is a alert" description="this is a description" type={AlertType.Danger}/>
+          <Alert title="this is a alert" type="default"/>
+          <Alert title="this is a alert" type="warning"/>
+          <Alert title="this is a alert" type="success"/>
+          <Alert title="this is a alert" type="danger"/>
+          <Alert title="this is a alert" description="this is a description"  type="danger"/>
         </div>
       </Transition>
       <Transition in={showTabs} timeout={300} animation="zoom-in-top">
