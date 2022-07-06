@@ -5,7 +5,12 @@ import MenuItem from './components/Menu/menuItem';
 import SubMenu from './components/Menu/subMenu';
 import Tabs from './components/Tabs/tabs'
 import TabItem from './components/Tabs/tabItem';
-
+import Icon from './components/Icon/icon'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import {library} from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 function App() {
   return (
     <div className="App">
@@ -39,6 +44,9 @@ function App() {
         <TabItem label='two'>this is card two</TabItem>
         <TabItem label='three'>this is card three</TabItem>
       </Tabs>
+
+      <FontAwesomeIcon icon={faCoffee} />
+      <Icon icon="arrow-down" theme="danger" size="10x"/>
     </div>
   );
 }
