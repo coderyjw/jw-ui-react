@@ -14,7 +14,13 @@ library.add(fas)
 function App() {
   return (
     <div className="App">
-      <Menu style={{marginBottom: '200px',marginLeft: '10px'}} defaultIndex="0" onSelect={index => console.log(index)} mode="horizontal" defaultOpenSubMenus={['0','1','2']}>
+      <Menu 
+        style={{marginBottom: '200px',marginLeft: '10px'}} 
+        defaultIndex="0"
+        onSelect={index => console.log(index)}
+        defaultOpenSubMenus={['0','1','2']}
+        mode="vertical"
+      >
         <SubMenu title="dropdown" >
           <MenuItem>dropdown1</MenuItem>
           <MenuItem>dropdown2</MenuItem>
