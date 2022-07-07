@@ -61,7 +61,7 @@ function App() {
         </div>
       </Transition>
       <Transition in={showTabs} timeout={300} animation="zoom-in-top">
-        <Tabs >
+        <Tabs defaultIndex={1}>
           <TabItem label='one' disabled>this is card one</TabItem>
           <TabItem label='two'>this is card two</TabItem>
           <TabItem label='three'>this is card three</TabItem>

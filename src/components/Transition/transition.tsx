@@ -4,12 +4,14 @@ import { CSSTransitionProps } from 'react-transition-group/CSSTransition'
 
 type AnimationName = 'zoom-in-top' | 'zoom-in-left' | 'zoom-in-bottom' | 'zoom-in-right'
 type TransitionProps = CSSTransitionProps & {
+  /** 动画名称 */
   animation?:AnimationName
+  /** 添加一层div  */
   wrapper?: boolean,
   children?: ReactNode
 }
 
-const Transition:React.FC<TransitionProps> = props => {
+export const Transition:React.FC<TransitionProps> = props => {
 
   const { children, classNames, animation, wrapper, ...restProps} = props
   return (
@@ -25,6 +27,7 @@ const Transition:React.FC<TransitionProps> = props => {
 Transition.defaultProps = {
   unmountOnExit: true,
   appear: true,
+  animation: 'zoom-in-top'
 }
 
 

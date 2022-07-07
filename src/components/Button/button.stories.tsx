@@ -6,11 +6,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 export default {
   title: 'Button 按钮',
   component: Button,
-  // parameters: {
-  //   docs: {
-  //     page: WelcomeMDX
-  //   }
-  // }
 } as ComponentMeta<typeof Button>
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />
