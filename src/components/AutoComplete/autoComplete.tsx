@@ -1,7 +1,8 @@
 import Input, { InputProps } from '../Input/input';
-import { ChangeEvent, useState, ReactElement, useEffect } from 'react';
+import { ChangeEvent, useState, ReactElement, useEffect, KeyboardEvent } from 'react';
 import Icon from '../Icon/icon';
 import useDebounce from '../../hooks/useDebounce';
+import classNames from 'classnames';
 interface DataSourceObject {
   value: string;
 }
@@ -27,6 +28,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
   const debounceValue = useDebounce(inputValue);
+  const [highlightIndex, setHighlightIndex] = useState(-1);
   useEffect(() => {
     if (debounceValue) {
       const result = fetchSuggestions(debounceValue);
@@ -42,6 +44,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     } else {
       setSuggestions([]);
     }
+    setHighlightIndex(-1);
   }, [debounceValue]);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -55,16 +58,49 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     }
   };
 
+  const highlight = (index: number) => {
+    if (index < 0) index = 0;
+    if (index >= suggestions.length) {
+      index = suggestions.length - 1;
+    }
+    console.log(index);
+    setHighlightIndex(index);
+  };
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.key);
+    switch (e.key) {
+      case 'Enter':
+        if (suggestions[highlightIndex]) {
+          handleSelect(suggestions[highlightIndex]);
+        }
+        break;
+      case 'ArrowDown':
+        highlight(highlightIndex - 1);
+        break;
+      case 'ArrowUp':
+        highlight(highlightIndex + 1);
+        break;
+      case 'Escape':
+        setSuggestions([]);
+        break;
+      default:
+        break;
+    }
+  };
+
   const renderTemplate = (item: DataSourceType) => {
     return renderOption ? renderOption(item) : item.value;
   };
 
   const generateDropdown = () => {
     return (
-      <ul className="jw-suggestions-list">
+      <ul className="jw-suggestion-list">
         {suggestions.map((item, index) => {
+          const cnames = classNames('suggestion-item', {
+            'is-active': index === highlightIndex,
+          });
           return (
-            <li key={index} onClick={() => handleSelect(item)}>
+            <li className={cnames} key={index} onClick={() => handleSelect(item)}>
               {renderTemplate(item)}
             </li>
           );
@@ -74,7 +110,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
   };
   return (
     <div className="jw-auto-complete">
-      <Input value={inputValue} {...restProps} onChange={handleChange} />
+      <Input value={inputValue} {...restProps} onChange={handleChange} onKeyDown={handleKeyDown} />
       {loading && (
         <div className="suggstions-loading-icon">
           <Icon icon="spinner" spin />
