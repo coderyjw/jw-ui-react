@@ -6,7 +6,7 @@ import SubMenu from './components/Menu/subMenu';
 import Tabs from './components/Tabs/tabs';
 import TabItem from './components/Tabs/tabItem';
 import Input from './components/Input/input';
-import AutoComplete from './components/AutoComplete/autoComplete';
+import AutoComplete, { DataSourceType } from './components/AutoComplete/autoComplete';
 import Icon from './components/Icon/icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
@@ -21,21 +21,28 @@ function App() {
   const [showBtn, setShowBtn] = useState(false);
   const [showTabs, setShowTabs] = useState(false);
 
-  const lakersWithNumber = [
-    {value: 'bradley', number: 11},
-    {value: 'pope', number: 1},
-    {value: 'caruso', number: 4},
-    {value: 'cook', number: 2},
-    {value: 'cousins', number: 15},
-    {value: 'james', number: 23},
-    {value: 'AD', number: 3},
-    {value: 'green', number: 14},
-    {value: 'howard', number: 39},
-    {value: 'kuzma', number: 0},
-  ] 
-  const handleFetch = (query: string) => {
-    return lakersWithNumber.filter(player => player.value.includes(query))
+  interface GithubUserProps {
+    login: string;
+    url: string;
+    avatar_url: string;
   }
+  const handleFetch = (query: string) => {
+    return fetch(`https://api.github.com/search/users?q=${query}`)
+      .then((res) => res.json())
+      .then(({ items }) => {
+        return items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }));
+      });
+  };
+
+  const renderOption = (item: DataSourceType) => {
+    const itemWithGithub = item as DataSourceType<GithubUserProps>;
+    return (
+      <>
+        <b>Name: {itemWithGithub.value}</b>
+        <span>url: {itemWithGithub.url}</span>
+      </>
+    );
+  };
   return (
     <div className="App">
       <Button onClick={(e) => setShowMenu(!showMenu)}>showMenu</Button>
@@ -100,7 +107,12 @@ function App() {
         </Tabs>
       </Transition>
       <Input style={{ width: '350px' }} onChange={(e) => console.log(e.target.value)} />
-      <AutoComplete style={{ width: '350px' }} fetchSuggestions={handleFetch} />
+      <AutoComplete
+        style={{ width: '350px' }}
+        fetchSuggestions={handleFetch}
+        placeholder="输入 Github 用户名试试"
+        renderOption={renderOption}
+      />
     </div>
   );
 }

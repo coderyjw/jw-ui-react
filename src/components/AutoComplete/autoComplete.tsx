@@ -1,7 +1,7 @@
 import Input, { InputProps } from '../Input/input';
-import { ChangeEvent, useState, ReactElement } from 'react';
+import { ChangeEvent, useState, ReactElement, useEffect } from 'react';
 import Icon from '../Icon/icon';
-
+import useDebounce from '../../hooks/useDebounce';
 interface DataSourceObject {
   value: string;
 }
@@ -26,17 +26,15 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
   const [inputValue, setInputValue] = useState(value as string);
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInputValue(value);
-    if (value) {
-      const result = fetchSuggestions(value);
+  const debounceValue = useDebounce(inputValue);
+  useEffect(() => {
+    if (debounceValue) {
+      const result = fetchSuggestions(debounceValue);
       if (result instanceof Promise) {
         setLoading(true);
         result.then((res) => {
           setLoading(false);
-          setSuggestions(res);
+          setSuggestions(res || []);
         });
       } else {
         setSuggestions(result);
@@ -44,6 +42,10 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     } else {
       setSuggestions([]);
     }
+  }, [debounceValue]);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
   };
   const handleSelect = (item: DataSourceType) => {
     setSuggestions([]);

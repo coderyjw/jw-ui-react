@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { AutoComplete, DataSourceType, AutoCompleteProps } from './autoComplete';
 
+
 interface LakerPlayerProps {
   value: string;
   number: number;
@@ -83,25 +84,24 @@ export const BCustomComplete = (args: AutoCompleteProps) => {
 };
 BCustomComplete.storyName = '自定义搜索结果模版';
 
-
 export const CAjaxComplete = (args: AutoCompleteProps) => {
   const handleFetch = (query: string) => {
     return fetch(`https://api.github.com/search/users?q=${query}`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(({ items }) => {
-        return items.slice(0, 10).map((item: any) => ({ value: item.login, ...item}))
-      })
-  }
+        return items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }));
+      });
+  };
 
   const renderOption = (item: DataSourceType) => {
-    const itemWithGithub = item as DataSourceType<GithubUserProps>
+    const itemWithGithub = item as DataSourceType<GithubUserProps>;
     return (
       <>
         <b>Name: {itemWithGithub.value}</b>
         <span>url: {itemWithGithub.url}</span>
       </>
-    )
-  }
+    );
+  };
   return (
     <AutoComplete
       {...args}
@@ -109,6 +109,6 @@ export const CAjaxComplete = (args: AutoCompleteProps) => {
       placeholder="输入 Github 用户名试试"
       renderOption={renderOption}
     />
-  )
-}
-CAjaxComplete.storyName = '支持异步搜索'
+  );
+};
+CAjaxComplete.storyName = '支持异步搜索';
