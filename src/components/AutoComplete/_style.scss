@@ -2,7 +2,7 @@
   position: relative;
 }
 .jw-suggestion-list {
-  list-style:none;
+  list-style: none;
   padding-left: 0;
   white-space: nowrap;
   position: absolute;
@@ -13,6 +13,7 @@
   border: $menu-border-width solid $menu-border-color;
   box-shadow: $submenu-box-shadow;
   width: 100%;
+  overflow: auto;
   .suggstions-loading-icon {
     display: flex;
     align-items: center;

@@ -20,6 +20,7 @@ function App() {
   const [showAlert, setShowAlert] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
   const [showTabs, setShowTabs] = useState(false);
+  const [showInput, setShowInput] = useState(false);
 
   interface GithubUserProps {
     login: string;
@@ -49,6 +50,7 @@ function App() {
       <Button onClick={(e) => setShowBtn(!showBtn)}>showButton</Button>
       <Button onClick={(e) => setShowAlert(!showAlert)}>showAlert</Button>
       <Button onClick={(e) => setShowTabs(!showTabs)}>showTabs</Button>
+      <Button onClick={(e) => setShowInput(!showInput)}>showInput</Button>
       <Transition in={showMenu} timeout={300} animation="zoom-in-top">
         <Menu
           style={{ marginBottom: '200px', marginLeft: '10px' }}
@@ -106,13 +108,17 @@ function App() {
           <TabItem label="three">this is card three</TabItem>
         </Tabs>
       </Transition>
-      <Input style={{ width: '350px' }} onChange={(e) => console.log(e.target.value)} />
-      <AutoComplete
-        style={{ width: '350px' }}
-        fetchSuggestions={handleFetch}
-        placeholder="输入 Github 用户名试试"
-        renderOption={renderOption}
-      />
+      <Transition in={showInput} timeout={300} animation="zoom-in-top" wrapper>
+        <>
+          <Input style={{ width: '350px' }} onChange={(e) => console.log(e.target.value)} />
+          <AutoComplete
+            style={{ width: '350px' }}
+            fetchSuggestions={handleFetch}
+            placeholder="输入 Github 用户名试试"
+            renderOption={renderOption}
+          />
+        </>
+      </Transition>
     </div>
   );
 }

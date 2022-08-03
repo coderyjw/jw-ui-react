@@ -3,7 +3,8 @@ import { ChangeEvent, useState, ReactElement, useEffect, KeyboardEvent, useRef }
 import Icon from '../Icon/icon';
 import useDebounce from '../../hooks/useDebounce';
 import classNames from 'classnames';
-import useClickOutside from '../../hooks/useClickOutside'
+import useClickOutside from '../../hooks/useClickOutside';
+import Transition from '../Transition/transition';
 interface DataSourceObject {
   value: string;
 }
@@ -22,8 +23,17 @@ export interface AutoCompleteProps extends Omit<InputProps, 'onSelect' | 'onChan
   renderOption?: (item: DataSourceType) => ReactElement;
 }
 
+/**
+ * 输入框自动完成功能。当输入值需要自动完成时使用，支持同步和异步两种方式
+ * 支持 Input 组件的所有属性 支持键盘事件选择
+ * ### 引用方法
+ *
+ * ~~~js
+ * import { AutoComplete } from 'vikingship'
+ * ~~~
+ */
 export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
-  const { fetchSuggestions, value, onSelect, renderOption, ...restProps } = props;
+  const { fetchSuggestions, value, onSelect, renderOption, style, ...restProps } = props;
 
   const [inputValue, setInputValue] = useState(value as string);
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
@@ -31,26 +41,33 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
   const debounceValue = useDebounce(inputValue);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const triggerSearch = useRef(false);
-  const componentRef = useRef<HTMLDivElement>(null)
+  const componentRef = useRef<HTMLDivElement>(null);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useClickOutside(componentRef, () => {
-    setSuggestions([])
-  })
+    setSuggestions([]);
+  });
   useEffect(() => {
     if (debounceValue && triggerSearch.current) {
+      setSuggestions([]);
       const result = fetchSuggestions(debounceValue);
       if (result instanceof Promise) {
         setLoading(true);
         result.then((res) => {
-          console.log(result);
           setLoading(false);
           setSuggestions(res || []);
+          if (res.length > 0) {
+            setShowDropdown(true);
+          }
         });
       } else {
         setSuggestions(result);
+        if (result.length > 0) {
+          setShowDropdown(true);
+        }
       }
     } else {
-      setSuggestions([]);
+      setShowDropdown(false);
     }
     setHighlightIndex(-1);
   }, [debounceValue]);
@@ -61,8 +78,8 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     triggerSearch.current = true;
   };
   const handleSelect = (item: DataSourceType) => {
-    setSuggestions([]);
     setInputValue(item.value);
+    setShowDropdown(false);
     if (onSelect) {
       onSelect(item);
     }
@@ -90,7 +107,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
         highlight(highlightIndex - 1);
         break;
       case 'Escape':
-        setSuggestions([]);
+        setShowDropdown(false);
         break;
       default:
         break;
@@ -103,22 +120,31 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
 
   const generateDropdown = () => {
     return (
-      <ul className="jw-suggestion-list">
-        {suggestions.map((item, index) => {
-          const cnames = classNames('suggestion-item', {
-            'is-active': index === highlightIndex,
-          });
-          return (
-            <li className={cnames} key={index} onClick={() => handleSelect(item)}>
-              {renderTemplate(item)}
-            </li>
-          );
-        })}
-      </ul>
+      <Transition
+        in={showDropdown || loading}
+        animation="zoom-in-top"
+        timeout={300}
+        onExited={() => {
+          setSuggestions([]);
+        }}
+      >
+        <ul className="jw-suggestion-list">
+          {suggestions.map((item, index) => {
+            const cnames = classNames('suggestion-item', {
+              'is-active': index === highlightIndex,
+            });
+            return (
+              <li className={cnames} key={index} onClick={() => handleSelect(item)}>
+                {renderTemplate(item)}
+              </li>
+            );
+          })}
+        </ul>
+      </Transition>
     );
   };
   return (
-    <div className="jw-auto-complete" ref={componentRef}>
+    <div className="jw-auto-complete" ref={componentRef} style={style}>
       <Input value={inputValue} {...restProps} onChange={handleChange} onKeyDown={handleKeyDown} />
       {loading && (
         <div className="suggstions-loading-icon">
