@@ -1,8 +1,9 @@
 import Input, { InputProps } from '../Input/input';
-import { ChangeEvent, useState, ReactElement, useEffect, KeyboardEvent } from 'react';
+import { ChangeEvent, useState, ReactElement, useEffect, KeyboardEvent, useRef } from 'react';
 import Icon from '../Icon/icon';
 import useDebounce from '../../hooks/useDebounce';
 import classNames from 'classnames';
+import useClickOutside from '../../hooks/useClickOutside'
 interface DataSourceObject {
   value: string;
 }
@@ -29,12 +30,19 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
   const [loading, setLoading] = useState(false);
   const debounceValue = useDebounce(inputValue);
   const [highlightIndex, setHighlightIndex] = useState(-1);
+  const triggerSearch = useRef(false);
+  const componentRef = useRef<HTMLDivElement>(null)
+
+  useClickOutside(componentRef, () => {
+    setSuggestions([])
+  })
   useEffect(() => {
-    if (debounceValue) {
+    if (debounceValue && triggerSearch.current) {
       const result = fetchSuggestions(debounceValue);
       if (result instanceof Promise) {
         setLoading(true);
         result.then((res) => {
+          console.log(result);
           setLoading(false);
           setSuggestions(res || []);
         });
@@ -46,9 +54,11 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     }
     setHighlightIndex(-1);
   }, [debounceValue]);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
+    triggerSearch.current = true;
   };
   const handleSelect = (item: DataSourceType) => {
     setSuggestions([]);
@@ -56,6 +66,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     if (onSelect) {
       onSelect(item);
     }
+    triggerSearch.current = false;
   };
 
   const highlight = (index: number) => {
@@ -63,11 +74,9 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     if (index >= suggestions.length) {
       index = suggestions.length - 1;
     }
-    console.log(index);
     setHighlightIndex(index);
   };
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key);
     switch (e.key) {
       case 'Enter':
         if (suggestions[highlightIndex]) {
@@ -75,10 +84,10 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
         }
         break;
       case 'ArrowDown':
-        highlight(highlightIndex - 1);
+        highlight(highlightIndex + 1);
         break;
       case 'ArrowUp':
-        highlight(highlightIndex + 1);
+        highlight(highlightIndex - 1);
         break;
       case 'Escape':
         setSuggestions([]);
@@ -109,7 +118,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     );
   };
   return (
-    <div className="jw-auto-complete">
+    <div className="jw-auto-complete" ref={componentRef}>
       <Input value={inputValue} {...restProps} onChange={handleChange} onKeyDown={handleKeyDown} />
       {loading && (
         <div className="suggstions-loading-icon">
