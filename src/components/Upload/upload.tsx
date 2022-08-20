@@ -9,7 +9,7 @@ export interface UploadProps  {
   onProgress?: (percent: number, file: UploadFile) => void;
   onSuccess?: (data: any, file: UploadFile) => void; 
   onError?: (err: any, file: UploadFile) => void;
-  beforeUpload?: (file:UploadFile) => boolean | Promise<UploadFile>;
+  beforeUpload?: (file:File) => boolean | Promise<File>;
   onChange?: (file:UploadFile) => void;
   onRemove?: (file:UploadFile) => void;
   headers?: {[key: string]: any};
