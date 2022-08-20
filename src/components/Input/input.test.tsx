@@ -7,8 +7,8 @@ const defaultProps: InputProps = {
   onChange: jest.fn(),
   placeholder: 'test-input'
 }
-describe('测试Input组件', () => {
-  it('应该呈现正确的默认输入', () => {
+describe('test Input component', () => {
+  it('should render the correct default Input', () => {
     const wrapper = render(<Input {...defaultProps}/>)
     const testNode = wrapper.getByPlaceholderText('test-input') as HTMLInputElement
     expect(testNode).toBeInTheDocument()
@@ -17,17 +17,17 @@ describe('测试Input组件', () => {
     expect(defaultProps.onChange).toHaveBeenCalled()
     expect(testNode.value).toEqual('23')
   })
-  it('应该在禁用的属性上呈现禁用的输入', () => {
+  it('should render the disabled Input on disabled property', () => {
     const wrapper = render(<Input disabled placeholder="disabled"/>)
     const testNode = wrapper.getByPlaceholderText('disabled') as HTMLInputElement
     expect(testNode.disabled).toBeTruthy()
   })
-  it('应该在 size 属性上呈现不同的输入大小', () => {
+  it('should render different input sizes on size property', () => {
     const wrapper = render(<Input placeholder="sizes" size="lg" />)
     const testContainer = wrapper.container.querySelector('.jw-input-wrapper')
     expect(testContainer).toHaveClass('input-size-lg')
   })
-  it('应该在 prepend/append 属性上呈现 prepend 和 append 元素', () => {
+  it('should render prepand and append element on prepand/append property', () => {
     const {queryByText, container } = render(<Input placeholder="pend" prepend="https://" append=".com"/>)
     const testContainer = container.querySelector('.jw-input-wrapper')
     expect(testContainer).toHaveClass('input-group input-group-append input-group-prepend')
