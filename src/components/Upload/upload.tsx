@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { ChangeEvent, FC , useRef} from 'react'
+import React, { ChangeEvent, FC , useRef, useState } from 'react'
 
 import Button from '../Button/button'
 
@@ -12,9 +12,33 @@ export interface UploadProps  {
   onChange?: (file:File) => void
 }
 
+export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
+export interface UploadFile {
+  uid: string;
+  size: number;
+  name: string;
+  status?: UploadFileStatus;
+  percent?: number;
+  raw?: File;
+  response?: any,
+  error?: any
+}
+
 export const Upload: FC<UploadProps> = props => {
   const { action, onError, onProgress, onSuccess, beforeUpload, onChange } = props
   const fileInput = useRef<HTMLInputElement>(null)
+  const [fileList, setFileList] = useState<UploadFile[]>([])
+  const updateFileList = (updateFile:UploadFile,updateObj: Partial<UploadFile>) => {
+    setFileList(prevList => {
+      return prevList.map(file => {
+        if(file.uid === updateFile.uid) {
+          return { ...file, ...updateObj}
+        } else {
+          return file
+        }
+      })
+    })
+  }
   const handleClick = () => {
     if(fileInput.current) {
       fileInput.current.click()
@@ -49,6 +73,16 @@ export const Upload: FC<UploadProps> = props => {
   }
 
   const post = (file:File) => {
+    let _file: UploadFile = {
+      uid: Date.now() + 'upload-file',
+      status: 'ready',
+      name: file.name,
+      size: file.size,
+      percent: 0,
+      raw: file
+    }
+
+    setFileList([_file, ...fileList])
     const formData = new FormData()
     formData.append(file.name, file)
     axios.post(action,formData,{
@@ -57,21 +91,21 @@ export const Upload: FC<UploadProps> = props => {
       },
       onUploadProgress: (e) => {
         let percentage = Math.round((e.loaded * 100) / e.total) || 0;
-        console.log(percentage, file)
         if (percentage < 100) {
+          updateFileList(_file, {percent: percentage, status: 'uploading'})
           if(onProgress) {
             onProgress(percentage, file)
           }
         }
       }
     }).then(res => {
-      console.log({res})
+      updateFileList(_file, { percent: 100, status: 'success', response: res.data})
       if(onSuccess) {
         onSuccess(res.data,file)
       }
       if(onChange) onChange(file)
     }).catch(err => {
-      console.log(err)
+      updateFileList(_file, { status: 'error',error: err})
       if(onError) {
         onError(err, file)
       }
