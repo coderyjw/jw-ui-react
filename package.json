@@ -2,6 +2,10 @@
   "name": "jw-ui-react",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "unpkg": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
@@ -28,9 +32,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && npm run build-ts && npm run build-css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-css": "sass ./src/styles/index.scss ./dist/index.css",
     "storybook": "start-storybook -p f6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -73,8 +80,10 @@
     "@storybook/preset-create-react-app": "^4.1.2",
     "@storybook/react": "^6.5.9",
     "@storybook/testing-library": "^0.0.13",
+    "@types/webpack": "^5.28.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "prop-types": "^15.8.1",
+    "rimraf": "^3.0.2",
     "webpack": "^5.73.0"
   }
 }
