@@ -1,45 +1,57 @@
 {
   "name": "jw-ui-react",
-  "version": "0.1.0",
-  "private": true,
-  "main": "dist/index.es.js",
-  "module": "dist/index.es.js",
-  "unpkg": "dist/index.umd.js",
+  "version": "0.1.1",
+  "private": false,
+  "description": "React components library",
+  "author": "yejw6",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coderyjw/jw-ui-react"
+  },
+  "license": "MIT",
+  "keywords": [
+    "Component",
+    "UI",
+    "React"
+  ],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "dist/index.css"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/classnames": "^2.3.1",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.41",
-    "@types/react": "^18.0.14",
-    "@types/react-dom": "^18.0.5",
-    "@types/react-transition-group": "^4.4.5",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.2",
-    "sass": "^1.54.0",
-    "storybook": "6.5",
-    "typescript": "^4.7.4",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "clean": "rimraf ./dist",
     "build": "npm run clean && npm run build-ts && npm run build-css",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
     "test": "react-scripts test",
+    "test:nowatch": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "sass ./src/styles/index.scss ./dist/index.css",
     "storybook": "start-storybook -p f6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build",
+    "prepublish": "npm run build",
+    "build-es": "rollup --config rollup/rollup.esm.config.js",
+    "build-umd": "rollup --config rollup/rollup.umd.config.js"
   },
   "eslintConfig": {
     "extends": [
@@ -84,6 +96,21 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "prop-types": "^15.8.1",
     "rimraf": "^3.0.2",
-    "webpack": "^5.73.0"
+    "webpack": "^5.73.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/classnames": "^2.3.1",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.41",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "@types/react-transition-group": "^4.4.5",
+    "react-scripts": "5.0.1",
+    "sass": "^1.54.0",
+    "storybook": "6.5",
+    "web-vitals": "^2.1.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
