@@ -1,6 +1,6 @@
 {
   "name": "jw-ui-react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "description": "React components library",
   "author": "yejw6",
@@ -35,6 +35,11 @@
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:nowatch && npm run lint"
+    }
   },
   "scripts": {
     "start": "react-scripts start",
@@ -92,11 +97,6 @@
     "@storybook/preset-create-react-app": "^4.1.2",
     "@storybook/react": "^6.5.9",
     "@storybook/testing-library": "^0.0.13",
-    "@types/webpack": "^5.28.0",
-    "babel-plugin-named-exports-order": "^0.0.2",
-    "prop-types": "^15.8.1",
-    "rimraf": "^3.0.2",
-    "webpack": "^5.73.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -106,11 +106,17 @@
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "@types/react-transition-group": "^4.4.5",
+    "@types/webpack": "^5.28.0",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "cross-env": "^7.0.3",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "rimraf": "^3.0.2",
     "sass": "^1.54.0",
     "storybook": "6.5",
     "web-vitals": "^2.1.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "webpack": "^5.73.0"
   }
 }
